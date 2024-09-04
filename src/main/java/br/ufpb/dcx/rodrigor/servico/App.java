@@ -108,13 +108,6 @@ public class App {
         }
         config.appData(Keys.SERVICO_NOME.key(), nomeServico);
 
-        String hostPing = propriedades.getProperty("servico.ping.host");
-        if(hostPing == null){
-            logger.error("Defina o host do serviço ping no arquivo de propriedades.");
-            logger.error("exemplo: 'servico.ping.host=https://localhost:8081'");
-            System.exit(1);
-        }
-        config.appData(Keys.SERVICO_PING_HOST.key(), hostPing);
 
         ParticipanteService participanteService = new ParticipanteService(mongoDBRepository);
         config.appData(Keys.PARTICIPANTE_SERVICE.key(), participanteService);
@@ -149,7 +142,6 @@ public class App {
 
         PingController pingController = new PingController();
         app.get("/v1/ping", pingController::ping);
-        app.get("/ping", pingController::mostrarPaginaPing);
 
     }
 
